@@ -2,21 +2,33 @@
 
 import NavigationBar from "@/components/custom/NavigationBar";
 import Sidebar from "@/components/custom/Sidebar";
-import UserTopBar from "@/components/custom/UserTopBar";
 import { useState } from "react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export default function ({ children }) {
   const [sidebarOpen, setSideBarOpen] = useState(false);
 
   return (
-    <div className="h-screen relative p-2 overflow-hidden flex flex-col gap-2">
-
+    <div className="h-screen relative overflow-hidden flex flex-col">
       {/* Header Section */}
-      <div className="w-full flex items-center ">
-      <UserTopBar setSideBarOpen={setSideBarOpen}></UserTopBar>
+      <div className="w-full flex items-center px-2">
+        <Button 
+          onClick={() => {
+            setSideBarOpen((prev) => !prev);
+          }}
+          className='bg-transparent px-1'
+        >
+          <Image
+            src="/menuIcon.svg"
+            height={24}
+            width={24}
+            alt="Menu Icon"
+          ></Image>
+        </Button>
       </div>
 
-      <div className="h-full overflow-x-hidden overflow-y-auto pt-2 pb-16 scroll-smooth">
+      <div className="h-full overflow-x-hidden overflow-y-auto pb-16 scroll-smooth">
         {children}
       </div>
 
@@ -26,7 +38,9 @@ export default function ({ children }) {
         transform transition-transform duration-300 ease-in-out 
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <Sidebar setSideBarOpen={setSideBarOpen}></Sidebar>
+        <Sidebar setSideBarOpen={setSideBarOpen} 
+        userdata={{ userProfileImage: '/profileImage.png', userName: 'Nikhil Mahamuni', userEmail: 'nikhilmahamuni250@gmail.com'}}
+      ></Sidebar>
       </div>
 
       <div className="absolute left-0 w-full bottom-0">
